@@ -1,0 +1,1 @@
+In this Project our purpose is that of simulating the motion of a given particle on a double well potential under the action of white noise.
