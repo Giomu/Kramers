@@ -15,6 +15,8 @@ Created on Sat Sep 28 11:55:30 2019
 import random
 import numpy as np
 import logging
+import re
+import sys
 from scipy.misc import derivative
 import matplotlib.pyplot as plt
 #import seaborn as sns
@@ -29,78 +31,78 @@ import matplotlib.pyplot as plt
 
 
 '''Definisco i parametri della simulazione'''
-'''
-N       = 800                 #Numero di passi dell'integrazione
-dt      = 0.1                 #Incrementino temporale
-
-eps     = 0.4                 #modula l'effetto stocastico
-gamma   = 0.1                 #Attrito
-KT      = eps*eps/(2*gamma)   #kT (epsilon=1)
-
-num_sim = 1000                #numero delle simulazioni da svolgere
-'''                               #ovvero il numero di particelle
 
 
 N       = 800    #Numero passi di integrazione
-dt      = 0.1    
+dt      = 0.1    #Step temporale
+
+
+f = open('params.txt') # Open file on read mode
+lines = f.read().split("\n") # Create a list containing all lines
+f.close()
+
+
+EPS     = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[11])
+GAMMA   = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[12])
+NUM_SIM = re.search(r"\d+", lines[13])
+
+
 
 
 while True:
     try:
-        eps = float(input("PLEASE ENTER EPSILON: "))
+        eps = float(EPS.group())
     
     except ValueError:
-        logging.error("Sorry, number should be a float digit.")
-        continue
+        logging.error("Sorry, epsilon should be a float digit.")
+        sys.exit()
     
     if eps < 0.3 or eps>1:
-        logging.warning('''Sorry but epsilon should be in range (0.3, 1) to see 
-                            some effects.. Try again!''')
-        continue
+        logging.warning("epsilon should be in range (0.3, 1) to see some effects")
+        sys.exit()
     
     else:
         break
 
-print('eps: ', eps)
+print('\neps:  ', eps)
 
 
 
 while True:
     try:
-        gamma = float(input("PLEASE ENTER GAMMA: "))
+        gamma = float(GAMMA.group())
     
     except ValueError:
-        logging.error("Sorry, number should be a float digit.")
-        continue
+        logging.error("gamma should be a float digit.")
+        sys.exit()
     
     if gamma < 0 or gamma>1:
-        logging.warning('''Sorry but gamma should be in range (0, 1).. Try again!''')
-        continue
+        logging.warning("gamma should be in range (0, 1)")
+        sys.exit()
     
     else:
         break
 
-print('gamma: ', gamma)
+print('gamma:', gamma)
 
 
 
 while True:
     try:
-        num_sim = int(input("PLEASE ENTER NUMBER OF PARTICLES N: "))
+        num_sim = int(NUM_SIM.group(0))
     
     except ValueError:
-        logging.error("Sorry, number should be an int digit.")
-        continue
+        logging.error(" N should be an int digit.")
+        sys.exit()
     
     if num_sim < 1000:
-        logging.warning('''Sorry but the error goes as 1/sqrt(N) 
-                            give me a number bigger then 1000''')
-        continue
+        logging.warning(" The error goes as 1/sqrt(N) insert N higher then 1000")
+        sys.exit()
     
     else:
         break
 
-print('N: ', num_sim)
+print('N:   ', num_sim,'\n')
 
 
 
@@ -113,7 +115,7 @@ def Boltz(eps, gamma):
 KT = Boltz(eps, gamma)
 #'''
 
-
+#print('KT: ', KT)
 
 
 
@@ -137,8 +139,8 @@ for t in range (0, num_sim):
 '''Definisco il Potenziale'''
 
 #richiedili da imput e si potrebbe verificare il tipo cioè che effettivamente siano numeri e non altro
-a = 2#np.sqrt(2)    #Parametri del potenziale asimmetrico per individuare
-b = 1#np.sqrt(2)    #i punti dei due minimi delle due buche
+a = np.sqrt(2)    #Parametri del potenziale asimmetrico per individuare
+b = np.sqrt(2)    #i punti dei due minimi delle due buche
 
 
 
@@ -201,6 +203,7 @@ r1, r2 = Prob_fuga(y_min1, y_min2)
 
 
 #Si puo mettere in una funzione?
+
 if a == b:
     assert r1 == r2
 
