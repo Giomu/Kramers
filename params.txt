@@ -1,0 +1,17 @@
+Warning: please never modify this document. Just fill it with the values required, then save it and run the program.(float number should be divided by '.')
+
+Epsilon: is the stochastic modulation and should be a float digit in range [0.3, 1] 
+Gamma  : is the attrito and should be a float digit in range (0, 0.5]
+N.     : is the number of particles on which to perform the MonteCarlo simulation and should be an int > 1000 
+Alfa.  : is to define the potential of the form V = (x^2 - Alfa*x)(x^2 + Beta*x)  
+Beta.  : is to define the potential of the form V = (x^2 - Alfa*x)(x^2 + Beta*x)
+Seed.  :
+
+
+
+Epsilon = 0.4
+Gamma.  = 0.1
+N       = 1000
+Alfa.   = 2
+Beta.   = 1
+Seed.   =
