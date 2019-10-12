@@ -108,14 +108,34 @@ print('N:   ', num_sim,'\n')
 
 
 
+#richiedili da imput e si potrebbe verificare il tipo cioè che effettivamente siano numeri e non altro
+a = np.sqrt(2)    #Parametri del potenziale asimmetrico per individuare
+b = np.sqrt(2)    #i punti dei due minimi delle due buche
 
-def Boltz(eps, gamma):
-    return eps*eps/(2*gamma)
+
+
+
+
+from Kram_Functions import Boltz
+from Kram_Functions import V
+#from fun import V_II
+from Kram_Functions import Calc_min_V
+from Kram_Functions import Prob_fuga
+from Kram_Functions import Prob_fin
+
 
 KT = Boltz(eps, gamma)
-#'''
 
-#print('KT: ', KT)
+y_min1, y_min2 = Calc_min_V(a,b)
+
+#potremmo printare il grafico del potenziale
+
+r1, r2 = Prob_fuga(y_min1, y_min2, KT, a, b)
+
+p1_teor, p2_teor = Prob_fin(N, r1, r2)
+
+
+
 
 
 
@@ -132,109 +152,10 @@ for t in range (0, num_sim):
         csi[t,k] = random.gauss(mu, sigma)
     
 #verifica quella cosa del vecchio progr
+#trova il modo di far mettere il seed da init file
+        
 
 
-
-
-'''Definisco il Potenziale'''
-
-#richiedili da imput e si potrebbe verificare il tipo cioè che effettivamente siano numeri e non altro
-a = np.sqrt(2)    #Parametri del potenziale asimmetrico per individuare
-b = np.sqrt(2)    #i punti dei due minimi delle due buche
-
-
-
-def V(y):
-    
-    ''' Questa funzione crea il Potenziale V(x) a partire dai 
-        valori di a e b forniti da input'''
-    
-    return ((y*y-a*y)*(y*y+b*y))
-
-
-
-def V_II(y):
-    
-    ''' Questa funzione calcola la derivata seconda del Potenziale V(x) '''
-    
-    return (12*y*y + 6*y*(b-a) - 2*a*b)
-
-
-#********QUI HA SENSO CREARE UNA CLASS KRAM CHE CALCOLI y_min1,2 r1,2 pi_teor????????????????*********
-
-
-##mi conviene mettere tutte queste funzioni in un altro file e chiamare solo le funzioni???
-
-
-#y_max = 0                                                 #max di V(y)
-
-def Calc_min_V(a, b):   
-    
-    ''' Questa funzione calcola i minimi a sinistra e destra
-        del Potenziale V(x) printandone la posizione sull'asse x'''
-    
-    y_minsx = (1/8)*(3*(a-b) - np.sqrt(9*(a-b)*(a-b)+32*a*b))  #min di sx
-    y_mindx = (1/8)*(3*(a-b) + np.sqrt(9*(a-b)*(a-b)+32*a*b))  #min di dx
-    print('\nminimo di sinistra:',y_minsx,'\nminimo di destra:',y_mindx)
-    
-    return y_minsx, y_mindx
-
-
-y_min1, y_min2 = Calc_min_V(a,b)
-    
-
-
-#potremmo printare il grafico del potenziale
-
-
-
-
-def Prob_fuga(y_min1, y_min2):
-    
-    ''' Questa funzione calcola le probabilità di fuga
-        dalle due buche di sinistra e di destra P_f1 e P_f2'''
-    
-    P_f1 = (np.sqrt(V_II(y_min1))/(2*np.pi))*np.exp((-V(0)+V(y_min1))/KT)
-    P_f2 = (np.sqrt(V_II(y_min2))/(2*np.pi))*np.exp((-V(0)+V(y_min2))/KT)
-    
-    return P_f1, P_f2
-
-r1, r2 = Prob_fuga(y_min1, y_min2)
-
-
-#Si puo mettere in una funzione?
-
-if a == b:
-    assert r1 == r2
-
-if a > b:
-    assert r1 > r2
-
-
-
-def Prob_fin(N, r1, r2):
-    
-    ''' Questa funzione calcola la probabilità che a fine simulazione,
-        ovvero al tempo finale, la particella si trovi nella buca di
-        sinistra o di destra rispettivamente'''
-    
-    p1_fin = np.exp(-N*(r1+r2)) + r2*(1-np.exp(-N*(r1+r2)))/(r1+r2)
-    p2_fin = r1*(1-np.exp(-N*(r1+r2)))/(r1+r2)
-    
-    return p1_fin, p2_fin
-
-p1_teor, p2_teor = Prob_fin(N, r1, r2)
-
-
-
-#non so bene come farlo girare in una funzione
-'''Verify that the sum of the 2 probabilities are equal to one'''
-assert p1_teor, p2_teor >= 0
-assert p1_teor + p2_teor == 1
-
-
-
-#************     fino a qui    **************
 
 
 
@@ -260,18 +181,18 @@ for i in range(0, num_sim):
     
     p[i,0] = p0
 
-    U[i,0] = V(x[i,0])
+    U[i,0] = V(x[i,0], a, b)
     
 
     for j in range(1, N):
     
-        V_diff = derivative(V, x[i,j-1], dx=1e-6)
+        V_diff = derivative(V, x[i,j-1], dx=1e-6, args=(a,b))
         
             
         p[i,j] = p[i,j-1] - gamma*p[i,j-1]*dt - V_diff*dt + eps*csi[i,j]*pow(dt, 0.5)
         x[i,j] = x[i,j-1] + p[i,j]*dt
             
-        U[i,j] = V(x[i,j])
+        U[i,j] = V(x[i,j], a, b)
         
         t[j] = j*dt
 
@@ -318,7 +239,7 @@ sub_int=10000
 
 M = np.linspace(-3, 3, sub_int+1)
 
-rho_teor = np.exp(-V(M)/KT) #distribuzione teoricaa non normalizzata
+rho_teor = np.exp(-V(M, a, b)/KT) #distribuzione teoricaa non normalizzata
 
 amp_int = abs(M[1] - M[0]) #ampiezza dell'intervallino
 
