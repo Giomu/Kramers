@@ -11,14 +11,14 @@ Created on Sat Sep 28 11:55:30 2019
 
 
 
-
+from Kram_Functions import Boltz, V, Calc_min_V, Prob_fuga, Prob_fin
 import random
 import numpy as np
 import logging
 import re
 import sys
 from scipy.misc import derivative
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 #import seaborn as sns
 
 
@@ -110,25 +110,18 @@ print('N:   ', num_sim,'\n')
 
 #richiedili da imput e si potrebbe verificare il tipo cioè che effettivamente siano numeri e non altro
 a = np.sqrt(2)    #Parametri del potenziale asimmetrico per individuare
-b = np.sqrt(2)    #i punti dei due minimi delle due buche
+b = 1#np.sqrt(2)    #i punti dei due minimi delle due buche
 
 
 
 
 
-from Kram_Functions import Boltz
-from Kram_Functions import V
-#from fun import V_II
-from Kram_Functions import Calc_min_V
-from Kram_Functions import Prob_fuga
-from Kram_Functions import Prob_fin
+
 
 
 KT = Boltz(eps, gamma)
 
 y_min1, y_min2 = Calc_min_V(a,b)
-
-#potremmo printare il grafico del potenziale
 
 r1, r2 = Prob_fuga(y_min1, y_min2, KT, a, b)
 
@@ -207,287 +200,19 @@ for i in range(0, num_sim):
     
         
 
-'''plt.plot(x[i,:], U[i,:])
-plt.title('Potenziale')
-plt.show() '''      
-
-
-#np.savetxt('posizioni_asi.txt', x[:,:],newline='''\n\n\n\n\n\nPARTICELLA %j
-#           \n\n\n\n\n''',header="""Posizioni delle singole particelle""")
-#np.savetxt('impulsi_asi.txt', p[:,:], newline='''\n\n\n\n\n\nPARTICELLA %j
-#           \n\n\n\n\n''',header='Impulsi delle singole particelle')
-#np.savetxt('potenziali_asi.txt', U[:,:], newline='''\n\n\n\n\n\nPARTICELLA %j
-#           \n\n\n\n\n''',header='Potenziali delle singole particelle')
-
-
-
-
-
-
-
-
-
-
-''' Creiamo gli Istogrammi delle posizioni '''
-
-bi = 40    
-
-
-#rho teorica delle posizioni
-
-sub_int=10000
-
-M = np.linspace(-3, 3, sub_int+1)
-
-rho_teor = np.exp(-V(M, a, b)/KT) #distribuzione teoricaa non normalizzata
-
-amp_int = abs(M[1] - M[0]) #ampiezza dell'intervallino
-
-trap = 0.5*amp_int*(rho_teor[0] + rho_teor[-1])   #normalizzazione
-trap += sum(rho_teor[1:-1]) * amp_int             #normalizzazione
-
-plt.plot(M, rho_teor[:]/trap, color='black', label='Teorica')
-
-
-
-#rho sperimentale delle posizioni
-
-for s in range(100, N, 150):
-    
-    
-    num_x = [0]*(bi+1)
-    
-    xmax=np.max(x[:,s])
-    xmin=np.min(x[:,s])
-    
-    deltax= (xmax-xmin)/bi
-    mino = np.linspace(xmin, xmax, (bi+1))
-    
-    
-    for z in range(0, num_sim):
-        
-        k = (x[z,s]-xmin)/deltax
-        
-        num_x[int(k)] += 1 
-        
-    
-    distr = num_x[:]/(num_sim*deltax)
-    
-    plt.step(mino[:], distr[:], label='T=%i' %s)
-
-
-plt.title('Distribuzione delle particelle')
-plt.xlabel('Posizione')
-plt.ylabel('rho')
-plt.grid(True)
-plt.legend(loc='best')
-plt.show()
-
-
-
-
-
-
-
-
-
-
-''' Creo gli istogrammi degli impulsi a mano '''
-
-
-
-#Creiamo la rho teorica degli impulsi
-
-avg_p    = np.zeros(N)
-rho_p_teor = np.zeros(N)
-
-
-
-f = np.linspace(-5, 5, N)
-
-for h in range(1, N):
-    
-    avg_p[h] = 0
-        
-    rho_p_teor[h] = np.exp(-(f[h] - avg_p[h])*(f[h] - 
-              avg_p[h])/(2*KT))/np.sqrt(2*np.pi*KT)
-    
-    
-#creiamo l'istogramma numerico
-
-for s in range(10, 150, 20):
-    
-    
-    num_p = [0]*(bi+1)
-    
-    pmax=np.max(p[:,s])
-    pmin=np.min(p[:,s])
-    
-    deltap= (pmax-pmin)/bi
-    gino = np.linspace(pmin, pmax, (bi+1))
-   
-    for z in range(0, num_sim):
-        
-        a = (p[z,s]-pmin)/deltap
-        
-        num_p[int(a)] += 1 
-        
-
-    plt.step(gino[:], num_p[:]/(num_sim*deltap), label='T=%i' %s)   
-
-
-
-plt.plot(f, rho_p_teor[:], color='black', label='Teorica')
-plt.title('Distribuzione degli Impulsi')
-plt.ylabel('rho')
-plt.legend(loc='best')
-plt.grid(True)
-plt.show()
-
-
-
-
-
-
-
-
-''' Andamenti delle popolazioni nelle buche di sinistra e destra '''
-
-sinistra = np.zeros(num_sim)
-destra   = np.zeros(num_sim)
-
-
-somma_var_sx = np.zeros(N)
-somma_var_dx = np.zeros(N)
-
-p1_teor_var = np.zeros(N)
-p2_teor_var = np.zeros(N)
-
-
-
-##popolazioni ai tempi finali    
-for h in range(0 , num_sim):
-    
-    sinistra[h] = frac_sx[h,N-1]
-    destra[h]   = frac_dx[h,N-1]
-
-Sx = np.sum(sinistra)
-Dx = np.sum(destra)
-
-print('\n\na sinistra ci sono:',Sx,'particelle\na destra ci sono:',
-      Dx,'particelle\n\n')
-
-
-
-
-##popolazioni al variare del tempo
-for o in range(0, N):
-    
-    somma_var_sx[o] = np.sum(frac_sx[:,o])/num_sim
-    somma_var_dx[o] = np.sum(frac_dx[:,o])/num_sim
-    p1_teor_var[o]  = np.exp(-t[o]*(r1+r2)) + r2*(1-np.exp(-t[o]*(r1+r2)))/(r1+r2)
-    p2_teor_var[o]  = r1*(1-np.exp(-t[o]*(r1+r2)))/(r1+r2)
-    
     
 
 
-
-distribuzioni = [Sx, Dx]
-
-Prob_Sper_Sx = Sx/(num_sim)
-Prob_Sper_Dx = Dx/(num_sim)
-
-
-
-p1_sper = Sx/num_sim
-p2_sper = Dx/num_sim
-
-
-centri = [y_min1, y_min2]
+np.savetxt('Posizioni.txt', x[:,:], header='Posizioni delle singole particelle')
+np.savetxt('Impulsi.txt',   p[:,:], header='Impulsi delle singole particelle')
+np.savetxt('LeftFraction.txt',  frac_sx[:,:], header='Particles Fraction on the left side')
+np.savetxt('RightFraction.txt', frac_dx[:,:], header='Particles Fraction on the right side')
+np.savetxt('Time.txt', t[:], header='Tempi')
 
 
 
 
-
-##Andamenti delle probabilità al variare del tempo histogramma'''
-
-for S in range(10, N, 150):
-    
-    plt.bar(centri, height=[np.sum(frac_sx[:,S-1]),np.sum(frac_dx[:,S-1])], 
-                            width=0.85, alpha=0.1, 
-                            label='%i T' %S )
-
-plt.xlabel('Posizione')
-plt.ylabel('Numero di particelle')
-plt.title('Particelle a sinistra e destra al variare del tempo')
-plt.legend(loc='best')    
-plt.grid(True)    
-plt.show()
-
-    
-
-##Anda,enti delle probabilità a fine simulazione '''
-
-plt.bar(centri, height = distribuzioni, width=0.35 ,color='#0504aa', alpha=0.7)
-plt.xlabel('Posizione')
-plt.ylabel('Numero di particelle')
-plt.title('Particelle a sinistra e destra a fine simulazione')
-plt.grid(True)
-plt.text(-0.25,160, 'p1_teor=%1.3f' %p1_teor, color = 'r')
-plt.text(-0.25,130, 'p2_teor=%1.3f' %p2_teor, color = 'r')
-plt.text(-0.25,90, 'p1_sper=%1.3f' %p1_sper, color = 'b')
-plt.text(-0.25,50, 'p2_sper=%1.3f' %p2_sper, color = 'b')
-plt.show()
-
-
-
-
-
-
-##Andamenti delle probabilità al variare del tempo '''
-
-
-plt.plot(t[1:], somma_var_sx[1:], label='Numerica sinistra')
-plt.plot(t[:], p1_teor_var[:],  label='Teorica nel tempo')
-plt.title('Probabilità che sia a sinistra nel tempo')
-plt.xlabel('Tempo')
-plt.grid(True)
-plt.legend(loc='best')
-plt.show()
-
-
-
-plt.plot(t[1:], somma_var_dx[1:], label='Numerica destra')
-plt.plot(t[:], p2_teor_var[:],  label='Teorica nel tempo')
-plt.title('Probabilità che sia a destra nel tempo ')
-plt.xlabel('Tempo')
-plt.grid(True)
-plt.legend(loc='best')
-plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print('\n\nEnd of Simulation\nPlease run Graphic.py')
 
 
 
