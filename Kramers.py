@@ -110,7 +110,7 @@ print('N:   ', num_sim,'\n')
 
 #richiedili da imput e si potrebbe verificare il tipo cioè che effettivamente siano numeri e non altro
 a = np.sqrt(2)    #Parametri del potenziale asimmetrico per individuare
-b = 1#np.sqrt(2)    #i punti dei due minimi delle due buche
+b = np.sqrt(2)    #i punti dei due minimi delle due buche
 
 
 
