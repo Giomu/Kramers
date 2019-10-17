@@ -19,6 +19,10 @@ import numpy as np
 
 
 def Boltz(eps, gamma):
+    
+    ''' Questa funzione calcola la costante di Boltzmann
+        a partire dai valori di epsilon e gamma forniti da input '''
+        
     return eps*eps/(2*gamma)
 
 
