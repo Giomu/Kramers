@@ -20,8 +20,9 @@ import numpy as np
 
 def Boltz(eps, gamma):
     
-    ''' Questa funzione calcola la costante di Boltzmann
-        a partire dai valori di epsilon e gamma forniti da input '''
+    ''' \n\nThis function computes the Boltzmann Constant given epsilon and gamma
+    as parameters.\n\n-->epsilon: modulation of stocasthic noise given from params.txt
+-->  gamma: friction of the system given from params.txt '''
         
     return eps*eps/(2*gamma)
 
@@ -31,8 +32,10 @@ def Boltz(eps, gamma):
 
 def V(y, a, b):
     
-    ''' Questa funzione crea il Potenziale V(x) a partire dai 
-        valori di a e b forniti da input'''
+    ''' \n\nThis function returns the Potential V(y) = (y**2 - ay)(y**2 + by)
+    given a and b from imput.\n
+    --> a: Alfa given from params.txt
+    --> b: Beta given from params.txt'''
     
     return ((y*y-a*y)*(y*y+b*y))
 
@@ -42,7 +45,10 @@ def V(y, a, b):
 
 def V_II(y, a, b):
     
-    ''' Questa funzione calcola la derivata seconda del Potenziale V(x) '''
+    ''' This function returns the second derivative of the Potential 
+    given a and b from imput. \n
+    --> a: Alfa given from params.txt
+    --> b: Beta given from params.txt'''
     
     return (12*y*y + 6*y*(b-a) - 2*a*b)
 
@@ -52,12 +58,14 @@ def V_II(y, a, b):
 
 def Calc_min_V(a, b):   
     
-    ''' Questa funzione calcola i minimi a sinistra e destra
-        del Potenziale V(x) printandone la posizione sull'asse x'''
+    ''' This function returns the left and right minimums of the potential V(x)
+    printing their positions on the x-axes. \n
+    --> a: Alfa given from params.txt
+    --> b: Beta given from params.txt'''
     
     y_minsx = (1/8)*(3*(a-b) - np.sqrt(9*(a-b)*(a-b)+32*a*b))  #min di sx
     y_mindx = (1/8)*(3*(a-b) + np.sqrt(9*(a-b)*(a-b)+32*a*b))  #min di dx
-    print('\nminimo di sinistra:',y_minsx,'\nminimo di destra:',y_mindx)
+    print('\nLeft minimum:',y_minsx,'\nRight minimum:',y_mindx)
     
     return y_minsx, y_mindx
 
@@ -67,8 +75,13 @@ def Calc_min_V(a, b):
 
 def Prob_fuga(y_min1, y_min2, KT, a, b):
     
-    ''' Questa funzione calcola le probabilità di fuga
-        dalle due buche di sinistra e di destra P_f1 e P_f2'''
+    ''' this function returns the left and right probability of escape r1 and r2 
+    from the two holes of the potential V(x). \n
+    --> y_min1: left minimum of the potential V(x) returned from Calc_min_V(a,b)
+    --> y_min2: right minimum of the potential V(x) returned from Calc_min_V(a,b)
+    --> KT    : Boltzmann Constant returned from Boltz(eps, gamma)
+    --> a: Alfa given from params.txt
+    --> b: Beta given from params.txt'''
     
     P_f1 = (np.sqrt(V_II(y_min1, a, b))/(2*np.pi))*np.exp((-V(0, a, b)+V(y_min1, a, b))/KT)
     P_f2 = (np.sqrt(V_II(y_min2, a, b))/(2*np.pi))*np.exp((-V(0, a, b)+V(y_min2, a, b))/KT)
@@ -81,9 +94,11 @@ def Prob_fuga(y_min1, y_min2, KT, a, b):
 
 def Prob_fin(N, r1, r2):
     
-    ''' Questa funzione calcola la probabilità che a fine simulazione,
-        ovvero al tempo finale, la particella si trovi nella buca di
-        sinistra o di destra rispettivamente'''
+    ''' This function returns the probability that at the end of the simulation
+    the particle is in the left or right hole of the potential V(x). \n
+    --> N: is the number of time step it is fixed for all the simulation
+    --> r1: Probability of left escape returned from Prob_fuga(y_min1, y_min2, KT, a, b)
+    --> r2: Probability of right escape returned from Prob_fuga(y_min1, y_min2, KT, a, b)'''
     
     p1_fin = np.exp(-N*(r1+r2)) + r2*(1-np.exp(-N*(r1+r2)))/(r1+r2)
     p2_fin = r1*(1-np.exp(-N*(r1+r2)))/(r1+r2)
