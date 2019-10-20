@@ -45,6 +45,11 @@ f.close()
 EPS     = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[11])
 GAMMA   = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[12])
 NUM_SIM = re.search(r"\d+", lines[13])
+A       = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[14])
+B       = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[15])
+S0      = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[16])
+
+
 
 
 
@@ -64,7 +69,7 @@ while True:
     else:
         break
 
-print('\neps:  ', eps)
+
 
 
 
@@ -83,7 +88,7 @@ while True:
     else:
         break
 
-print('gamma:', gamma)
+
 
 
 
@@ -102,20 +107,73 @@ while True:
     else:
         break
 
-print('N:   ', num_sim,'\n')
+
+
+
+
+while True:
+    try:
+        a = float(A.group())
+    
+    except ValueError:
+        logging.error("Sorry, a should be a float digit.")
+        sys.exit()
+    
+    if a < 0:
+        logging.warning("a should be greater then 0")
+        sys.exit()
+    
+    else:
+        break
 
 
 
 
 
-#richiedili da imput e si potrebbe verificare il tipo cioè che effettivamente siano numeri e non altro
-a = np.sqrt(2)    #Parametri del potenziale asimmetrico per individuare
-b = np.sqrt(2)    #i punti dei due minimi delle due buche
+while True:
+    try:
+        b = float(B.group())
+    
+    except ValueError:
+        logging.error("Sorry, b should be a float digit.")
+        sys.exit()
+    
+    if a < 0:
+        logging.warning("b should be greater then 0")
+        sys.exit()
+    
+    else:
+        break
 
 
 
 
+while True:
+    try:
+        s0 = float(S0.group())
+    
+    except ValueError:
+        logging.error("Sorry, seed should be a float digit.")
+        sys.exit()
+    
+    if s0 < 0:
+        logging.warning("seed should be greater then 0")
+        sys.exit()
+    
+    else:
+        break
 
+
+
+print('\n**************')
+print('Parameters of Simulation:\n')
+print('\n--> eps:  ', eps)
+print('--> gamma:', gamma)
+print('--> N:    ', num_sim)
+print('\n--> a:  ', a)
+print('--> b:  ', b)
+print('\n--> seed: ', s0)
+print('**************\n\n')
 
 
 
@@ -133,8 +191,10 @@ p1_teor, p2_teor = Prob_fin(N, r1, r2)
 
 
 '''Calcolo il Rumore bianco con distribuzione gaussiana a 
-media nulla e varianza 1'''
+media nulla e varianza 1 con seed da file di configurazione'''
 
+
+random.seed(s0)
 mu = 0
 sigma = 1
 
@@ -144,8 +204,9 @@ for t in range (0, num_sim):
     for k in range(0, N):
         csi[t,k] = random.gauss(mu, sigma)
     
-#verifica quella cosa del vecchio progr
-#trova il modo di far mettere il seed da init file
+
+
+
         
 
 
@@ -165,7 +226,7 @@ U = np.zeros((num_sim, N))
 frac_sx = np.zeros((num_sim, N))  #fraction of particles in the left side
 frac_dx = np.zeros((num_sim, N))  #fraction of particles in the right side
 
-t = np.zeros(N)
+t = np.zeros(N)      #time
 
 
 for i in range(0, num_sim):
@@ -212,7 +273,7 @@ np.savetxt('Time.txt', t[:], header='Tempi')
 
 
 
-print('\n\nEnd of Simulation\nPlease run Graphic.py')
+print('\n\nEnd of Simulation\nPlease run: Graphic.py')
 
 
 
