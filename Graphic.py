@@ -10,19 +10,10 @@ Created on Mon Oct 14 10:59:52 2019
 
 
 
-from Kramers import a, b, eps, gamma, N, num_sim, r1, r2
+from Kramers import a, b, eps, gamma, N, num_sim, r1, r2, y_min1, y_min2, p1_teor, p2_teor
 import numpy as np
 from Kram_Functions import V, Boltz
 import matplotlib.pyplot as plt
-
-
-
-KT = Boltz(eps, gamma)
-
-
-
-#potremmo printare il grafico del potenziale --> o forse meglio nel file 
-#di grafica direttamente
 
 
 
@@ -35,10 +26,10 @@ frac_sx = np.loadtxt('LeftFraction.txt')
 frac_dx = np.loadtxt('RightFraction.txt')
 
 
+
+
+KT = Boltz(eps, gamma)
 bi = 40   #numero di bins
-
-
-
 
 
 
@@ -77,7 +68,7 @@ for s in range(100, N, 150):
     xmin=np.min(x[:,s])
     
     deltax= (xmax-xmin)/bi
-    mino = np.linspace(xmin, xmax, (bi+1))
+    xvar = np.linspace(xmin, xmax, (bi+1))
     
     
     for z in range(0, num_sim):
@@ -89,7 +80,7 @@ for s in range(100, N, 150):
     
     distr = num_x[:]/(num_sim*deltax)
     
-    plt.step(mino[:], distr[:], label='T=%i' %s)
+    plt.step(xvar[:], distr[:], label='T=%i' %s)
 
 
 
@@ -137,7 +128,7 @@ for s in range(10, 150, 20):
     pmin=np.min(p[:,s])
     
     deltap= (pmax-pmin)/bi
-    gino = np.linspace(pmin, pmax, (bi+1))
+    pvar = np.linspace(pmin, pmax, (bi+1))
    
     for z in range(0, num_sim):
         
@@ -146,7 +137,7 @@ for s in range(10, 150, 20):
         num_p[int(a)] += 1 
         
 
-    plt.step(gino[:], num_p[:]/(num_sim*deltap), label='T=%i' %s)   
+    plt.step(pvar[:], num_p[:]/(num_sim*deltap), label='T=%i' %s)   
 
 
 
@@ -180,8 +171,11 @@ p2_teor_var = np.zeros(N)
 
 for o in range(0, N):
     
+    #Probabilità sperimentali nel tempo
     somma_var_sx[o] = np.sum(frac_sx[:,o])/num_sim
     somma_var_dx[o] = np.sum(frac_dx[:,o])/num_sim
+    
+    #Probabilità teoriche nel tempo
     p1_teor_var[o]  = np.exp(-t[o]*(r1+r2)) + r2*(1-np.exp(-t[o]*(r1+r2)))/(r1+r2)
     p2_teor_var[o]  = r1*(1-np.exp(-t[o]*(r1+r2)))/(r1+r2)
     
@@ -216,8 +210,44 @@ plt.show()
 
 
 
+#*************************#********************
 
 
+''' Andamenti delle probabilità a fine simulazione '''
+
+
+
+sinistra = np.zeros(num_sim)   #inizializzazioni
+destra   = np.zeros(num_sim)
+
+
+##popolazioni ai tempi finali    
+for h in range(0 , num_sim):
+    
+    sinistra[h] = frac_sx[h,N-1]
+    destra[h]   = frac_dx[h,N-1]
+
+
+
+distribuzioni = [np.sum(sinistra), np.sum(destra)] #altezza dell'istogramma
+
+p1_sper = np.sum(sinistra)/num_sim  #prob sperimentale a fine simulazione sx
+p2_sper = np.sum(destra)/num_sim    #prob sperimentale a fine simulazione dx
+
+centri = [y_min1, y_min2]                          #base dell'istogramma
+
+
+
+plt.bar(centri, height = distribuzioni, width=1 ,color='b')
+plt.xlabel('Positions')
+plt.ylabel('Number of Particles')
+plt.title('Particles ripartition at end Simulation')
+plt.grid(True)
+plt.text(2,170, 'p1_teor=%1.3f' %p1_teor, color = 'r')
+plt.text(2,130, 'p2_teor=%1.3f' %p2_teor, color = 'r')
+plt.text(2,90, 'p1_sper=%1.3f' %p1_sper, color = 'b')
+plt.text(2,50, 'p2_sper=%1.3f' %p2_sper, color = 'b')
+plt.show()
 
 
 
