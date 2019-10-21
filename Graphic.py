@@ -6,7 +6,7 @@ Created on Mon Oct 14 10:59:52 2019
 @author: giorgio
 """
 
-''' Parte grafica di Kramers.py '''
+''' Graphical part of Kramers.py '''
 
 
 
@@ -29,35 +29,35 @@ frac_dx = np.loadtxt('RightFraction.txt')
 
 
 KT = Boltz(eps, gamma)
-bi = 40   #numero di bins
+bi = 40   #number of bins
 
 
 
 
 
-''' Creiamo gli Istogrammi delle posizioni '''
+''' Build histograms of positions '''
 
  
 
 
-#rho teorica delle posizioni
+#theoretical rho of positions
 
 sub_int=10000
 
 M = np.linspace(-3, 3, sub_int+1)
 
-rho_teor = np.exp(-V(M, a, b)/KT) #distribuzione teoricaa non normalizzata
+rho_teor = np.exp(-V(M, a, b)/KT) #theoretical distribution not normalized
 
-amp_int = abs(M[1] - M[0])        #ampiezza dell'intervallino
+amp_int = abs(M[1] - M[0])        #interval lenght
 
-trap = 0.5*amp_int*(rho_teor[0] + rho_teor[-1])   #normalizzazione col metodo dei Trapezi
-trap += sum(rho_teor[1:-1]) * amp_int             #normalizzazione Trapezi
+trap = 0.5*amp_int*(rho_teor[0] + rho_teor[-1])   #Trapezi method of normalization
+trap += sum(rho_teor[1:-1]) * amp_int             #normalization Trapezi
 
-plt.plot(M, rho_teor[:]/trap, color='black', label='Teorica')
+plt.plot(M, rho_teor[:]/trap, color='black', label='Theoretical')
 
 
 
-#rho sperimentale delle posizioni
+#sperimental rho of positions
 
 for s in range(100, N, 150):
     
@@ -84,8 +84,8 @@ for s in range(100, N, 150):
 
 
 
-plt.title('Distribuzione delle particelle')
-plt.xlabel('Posizione')
+plt.title('Distribution of Positions')
+plt.xlabel('Positions')
 plt.ylabel('rho')
 plt.grid(True)
 plt.legend(loc='best')
@@ -100,11 +100,11 @@ plt.show()
 
 
 
-''' Creo gli istogrammi degli impulsi '''
+''' Build histogram of impulses '''
 
 
 
-#rho teorica degli impulsi
+#theoretical rho of impulses
 
 
 rho_p_teor = np.zeros(N)
@@ -117,7 +117,7 @@ for h in range(1, N):
     
 
     
-#rho numerica degli impulsi
+#Numerical rho of impulses
 
 for s in range(10, 150, 20):
     
@@ -141,8 +141,8 @@ for s in range(10, 150, 20):
 
 
 
-plt.plot(f, rho_p_teor[:], color='black', label='Teorica')
-plt.title('Distribuzione degli Impulsi')
+plt.plot(f, rho_p_teor[:], color='black', label='Theoretical')
+plt.title('Impulse Distribution')
 plt.ylabel('rho')
 plt.legend(loc='best')
 plt.grid(True)
@@ -156,11 +156,11 @@ plt.show()
 
 
 
-''' Andamenti delle probabilità al variare del tempo '''
+''' Changements of probabilities in Time '''
 
 
 
-somma_var_sx = np.zeros(N)    #inizializzazioni
+somma_var_sx = np.zeros(N)    #Inizializations
 somma_var_dx = np.zeros(N)
 
 p1_teor_var = np.zeros(N)
@@ -171,11 +171,11 @@ p2_teor_var = np.zeros(N)
 
 for o in range(0, N):
     
-    #Probabilità sperimentali nel tempo
+    #Sperimental probabilities in time
     somma_var_sx[o] = np.sum(frac_sx[:,o])/num_sim
     somma_var_dx[o] = np.sum(frac_dx[:,o])/num_sim
     
-    #Probabilità teoriche nel tempo
+    #PTheoretical probabilities in time
     p1_teor_var[o]  = np.exp(-t[o]*(r1+r2)) + r2*(1-np.exp(-t[o]*(r1+r2)))/(r1+r2)
     p2_teor_var[o]  = r1*(1-np.exp(-t[o]*(r1+r2)))/(r1+r2)
     
@@ -185,20 +185,20 @@ for o in range(0, N):
 
 
 
-plt.plot(t[1:], somma_var_sx[1:], label='Numerica sinistra')
-plt.plot(t[:], p1_teor_var[:],  label='Teorica nel tempo')
-plt.title('Probabilità che sia a sinistra nel tempo')
-plt.xlabel('Tempo')
+plt.plot(t[1:], somma_var_sx[1:], label='Left Numerical')
+plt.plot(t[:], p1_teor_var[:],  label='Theoretical in time')
+plt.title('Probability that is left in time')
+plt.xlabel('Time')
 plt.grid(True)
 plt.legend(loc='best')
 plt.show()
 
 
 
-plt.plot(t[1:], somma_var_dx[1:], label='Numerica destra')
-plt.plot(t[:], p2_teor_var[:],  label='Teorica nel tempo')
-plt.title('Probabilità che sia a destra nel tempo ')
-plt.xlabel('Tempo')
+plt.plot(t[1:], somma_var_dx[1:], label='Right Numerical')
+plt.plot(t[:], p2_teor_var[:],  label='Theoretical in time')
+plt.title('Probability that is right in time ')
+plt.xlabel('Time')
 plt.grid(True)
 plt.legend(loc='best')
 plt.show()
@@ -213,15 +213,15 @@ plt.show()
 #*************************#********************
 
 
-''' Andamenti delle probabilità a fine simulazione '''
+''' Probabilities at End of Simulation '''
 
 
 
-sinistra = np.zeros(num_sim)   #inizializzazioni
+sinistra = np.zeros(num_sim)   #inizializations
 destra   = np.zeros(num_sim)
 
 
-##popolazioni ai tempi finali    
+##Popolations at final time    
 for h in range(0 , num_sim):
     
     sinistra[h] = frac_sx[h,N-1]
@@ -229,22 +229,22 @@ for h in range(0 , num_sim):
 
 
 
-distribuzioni = [np.sum(sinistra), np.sum(destra)] #altezza dell'istogramma
+distribuzioni = [np.sum(sinistra), np.sum(destra)] #height of histogram
 
-p1_sper = np.sum(sinistra)/num_sim  #prob sperimentale a fine simulazione sx
-p2_sper = np.sum(destra)/num_sim    #prob sperimentale a fine simulazione dx
+p1_sper = np.sum(sinistra)/num_sim  #sperimental prob sx at end simulation
+p2_sper = np.sum(destra)/num_sim    #sperimental prob dx at end simulation
 
-centri = [y_min1, y_min2]                          #base dell'istogramma
+centri = [y_min1, y_min2]                          #histogram bases
 
 
 
 plt.bar(centri, height = distribuzioni, width=1 ,color='b')
 plt.xlabel('Positions')
 plt.ylabel('Number of Particles')
-plt.title('Particles ripartition at end Simulation')
+plt.title('Particles ripartition at Simulations end')
 plt.grid(True)
-plt.text(2,170, 'p1_teor=%1.3f' %p1_teor, color = 'r')
-plt.text(2,130, 'p2_teor=%1.3f' %p2_teor, color = 'r')
+plt.text(2,170, 'p1_theor=%1.3f' %p1_teor, color = 'r')
+plt.text(2,130, 'p2_theor=%1.3f' %p2_teor, color = 'r')
 plt.text(2,90, 'p1_sper=%1.3f' %p1_sper, color = 'b')
 plt.text(2,50, 'p2_sper=%1.3f' %p2_sper, color = 'b')
 plt.show()
