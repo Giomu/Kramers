@@ -17,6 +17,7 @@ x(i+1) = x(i) + p(i+1)*dt
 
 In order to compare numerical results (such as spatial and impulse distributions and variations of probabilities in time) with the theoretical ones. 
 
+All variables explanations are contained in 'params.txt'
 
 
 
@@ -63,7 +64,7 @@ How to use Kramers:
 
 
 
-1- Open 'params.txt' and fill it with the imput values required. Please don't change any row and respect the indications given.
+1- Open 'params.txt' and fill it with the imput values required. Please don't change any row and respect the indications given. All parameters explanations are contained in this file.
 
 2- Run 'Kramers.py'. At the end of the simulation five new txt files will be saved in the Directory used:
 
