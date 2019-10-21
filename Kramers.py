@@ -34,7 +34,7 @@ from scipy.misc import derivative
 
 
 N       = 800    #Numero passi di integrazione
-dt      = 0.1    #Step temporale
+dt      = 0.1    #time Step 
 
 
 f = open('params.txt') # Open file on read mode
@@ -190,8 +190,8 @@ p1_teor, p2_teor = Prob_fin(N, r1, r2)
 
 
 
-'''Calcolo il Rumore bianco con distribuzione gaussiana a 
-media nulla e varianza 1 con seed da file di configurazione'''
+'''Build white noise with gaussian distribution of mean 0 and variance 1
+    with the seed from params.txt'''
 
 
 random.seed(s0)
@@ -213,14 +213,14 @@ for t in range (0, num_sim):
 
 
 
-''' Integro il moto per le diverse simulazioni '''
+''' Integer the motion for different simulations '''
 
-x0 = y_min1          #posizione iniziale nel minimo di sinistra
-p0 = 0               #impulso iniziale fermo
+x0 = y_min1          #Initial position in left minimum
+p0 = 0               #Initial impulse equal to 0
 
     
-x = np.zeros((num_sim, N))   #matrici contenenti le particelle nelle righe
-p = np.zeros((num_sim, N))   #e gli istanti temporali nelle colonne
+x = np.zeros((num_sim, N))   #Matrices containing different particles in the rows
+p = np.zeros((num_sim, N))   #and their time evolutions in colomns
 U = np.zeros((num_sim, N))
 
 frac_sx = np.zeros((num_sim, N))  #fraction of particles in the left side
@@ -264,16 +264,16 @@ for i in range(0, num_sim):
     
 
 
-np.savetxt('Posizioni.txt', x[:,:], header='Posizioni delle singole particelle')
-np.savetxt('Impulsi.txt',   p[:,:], header='Impulsi delle singole particelle')
+np.savetxt('Posizioni.txt', x[:,:], header='Positions of single Particles')
+np.savetxt('Impulsi.txt',   p[:,:], header='Impulses of single Particles')
 np.savetxt('LeftFraction.txt',  frac_sx[:,:], header='Particles Fraction on the left side')
 np.savetxt('RightFraction.txt', frac_dx[:,:], header='Particles Fraction on the right side')
-np.savetxt('Time.txt', t[:], header='Tempi')
+np.savetxt('Time.txt', t[:], header='Time steps')
 
 
 
 
-print('\n\nEnd of Simulation\nPlease run: Graphic.py')
+print('\n\nEnd of Simulation\nTo see the graphical results please run: Graphic.py')
 
 
 
