@@ -21,8 +21,9 @@ import numpy as np
 def Boltz(eps, gamma):
     
     ''' \n\nThis function computes the Boltzmann Constant given epsilon and gamma
-    as parameters.\n\n-->epsilon: modulation of stocasthic noise given from params.txt
--->  gamma: friction of the system given from params.txt '''
+    as parameters.\n
+    -->epsilon: modulation of stocasthic noise given from params.txt
+    -->  gamma: friction of the system given from params.txt '''
         
     return eps*eps/(2*gamma)
 
