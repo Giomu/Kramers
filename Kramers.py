@@ -25,12 +25,17 @@ from scipy.misc import derivative
 
 
 
-''' Metti un bel messaggio di presentazione della simulazione spiegando
-    davvero tutto quello che fa il programma '''
+
+#print of presentation 
+print('\n\n')   
+print('''          ******Welcome to Kramers Simulation******\n
+          Thankyou for having filled params.txt with the Values required for the Simulation!\n
+          At the end of the integration please run Graphic.py to plot the Numerical Results obtained
+          \n          *****************************************''')
 
 
 
-'''Definisco i parametri della simulazione'''
+'''Define parameters of the Simulation'''
 
 
 N       = 800    #Numero passi di integrazione
@@ -165,15 +170,15 @@ while True:
 
 
 
-print('\n**************')
-print('Parameters of Simulation:\n')
-print('\n--> eps:  ', eps)
-print('--> gamma:', gamma)
-print('--> N:    ', num_sim)
-print('\n--> a:  ', a)
-print('--> b:  ', b)
-print('\n--> seed: ', s0)
-print('**************\n\n')
+print('\n          **************')
+print('          Parameters of Simulation:\n')
+print('\n          --> eps:  ', eps)
+print('          --> gamma:', gamma)
+print('          --> N:    ', num_sim)
+print('\n          --> a:  ', a)
+print('          --> b:  ', b)
+print('\n          --> seed: ', s0)
+print('          **************\n\n')
 
 
 
@@ -273,7 +278,13 @@ np.savetxt('Time.txt', t[:], header='Time steps')
 
 
 
-print('\n\nEnd of Simulation\nTo see the graphical results please run: Graphic.py')
+print('''\n\n          ******End of Simulation!******\n\n          If you want to plot Numerical results please run: Graphic.py\n
+          Else visit the following txt files for other manipulations:\n
+          --> Posizioni.txt
+          --> Impulsi.txt
+          --> LeftFraction.txt
+          --> RightFraction.txt
+          --> Time.txt\n''')
 
 
 
