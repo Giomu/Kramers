@@ -12,14 +12,12 @@ Created on Sat Sep 28 11:55:30 2019
 
 
 from Kram_Functions import Boltz, V, Calc_min_V, Prob_fuga, Prob_fin
+from configparser import ConfigParser
 import random
 import numpy as np
 import logging
-import re
 import sys
 from scipy.misc import derivative
-#import matplotlib.pyplot as plt
-#import seaborn as sns
 
 
 
@@ -38,21 +36,13 @@ print('''          ******Welcome to Kramers Simulation******\n
 '''Define parameters of the Simulation'''
 
 
-N       = 800    #Numero passi di integrazione
-dt      = 0.1    #time Step 
+N       = 1000    #Numero passi di integrazione
+dt      = 0.1     #time Step 
 
 
-f = open('params.txt') # Open file on read mode
-lines = f.read().split("\n") # Create a list containing all lines
-f.close()
 
-
-EPS     = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[11])
-GAMMA   = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[12])
-NUM_SIM = re.search(r"\d+", lines[13])
-A       = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[14])
-B       = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[15])
-S0      = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[16])
+config = ConfigParser()
+config.read_file(open(r'params.txt')) #open file and read it
 
 
 
@@ -61,7 +51,7 @@ S0      = re.search(r"[+-]?[0-9]+\.[0-9]+", lines[16])
 
 while True:
     try:
-        eps = float(EPS.group())
+        eps = float(config.get('Variables', 'Epsilon'))
     
     except ValueError:
         logging.error("Sorry, epsilon should be a float digit.")
@@ -80,7 +70,7 @@ while True:
 
 while True:
     try:
-        gamma = float(GAMMA.group())
+        gamma = float(config.get('Variables', 'Gamma'))
     
     except ValueError:
         logging.error("gamma should be a float digit.")
@@ -99,7 +89,7 @@ while True:
 
 while True:
     try:
-        num_sim = int(NUM_SIM.group(0))
+        num_sim = int(config.get('Variables', 'N'))
     
     except ValueError:
         logging.error(" N should be an int digit.")
@@ -118,7 +108,7 @@ while True:
 
 while True:
     try:
-        a = float(A.group())
+        a = float(config.get('Variables', 'Alpha'))
     
     except ValueError:
         logging.error("Sorry, a should be a float digit.")
@@ -137,7 +127,7 @@ while True:
 
 while True:
     try:
-        b = float(B.group())
+        b = float(config.get('Variables', 'Beta'))
     
     except ValueError:
         logging.error("Sorry, b should be a float digit.")
@@ -155,7 +145,7 @@ while True:
 
 while True:
     try:
-        s0 = float(S0.group())
+        s0 = float(config.get('Variables', 'Seed'))
     
     except ValueError:
         logging.error("Sorry, seed should be a float digit.")
@@ -175,8 +165,8 @@ print('          Parameters of Simulation:\n')
 print('\n          --> eps:  ', eps)
 print('          --> gamma:', gamma)
 print('          --> N:    ', num_sim)
-print('\n          --> a:  ', a)
-print('          --> b:  ', b)
+print('\n          --> a:    ', a)
+print('          --> b:    ', b)
 print('\n          --> seed: ', s0)
 print('          **************\n\n')
 
