@@ -1,6 +1,6 @@
 
 
-Purposes of the project:
+PURPOSES OF THE PROJECT:
 
 
 
@@ -27,7 +27,7 @@ All variables explanations are contained in 'params.txt'
 
 
 
-How to Install Kramers:
+HOW TO INSTALL Kramers:
 
 
 
@@ -39,19 +39,17 @@ Please, before running Kramers, check that you have already installed the follow
 
 
 
-> random : https://docs.python.org/3.6/library/random.html
+> random       : https://docs.python.org/3.6/library/random.html
 
-> numpy  : https://numpy.org/doc/1.17/user/setting-up.html
+> numpy        : https://numpy.org/doc/1.17/user/setting-up.html
 
-> logging: https://docs.python.org/3/library/logging.html
+> logging      : https://docs.python.org/3/library/logging.html
 
-> re     : https://docs.python.org/3/library/re.html
+> configparser : https://docs.python.org/3/library/configparser.html
 
-> sys    : https://docs.python.org/3/library/sys.html
+> sys          : https://docs.python.org/3/library/sys.html
 
-> scipy  : https://www.scipy.org/install.html
-
-
+> scipy        : https://www.scipy.org/install.html
 
 
 
@@ -60,11 +58,13 @@ Please, before running Kramers, check that you have already installed the follow
 
 
 
-How to use Kramers:
+
+
+HOW TO USE Kramers:
 
 
 
-1- Open 'params.txt' and fill it with the imput values required. Please don't change any row and respect the indications given. All parameters explanations are contained in this file.
+1- Open 'params.txt' and fill it with the imput values required. Please respect the indications given. All parameters explanations will be contained in this file.
 
 2- Run 'Kramers.py'. At the end of the simulation five new txt files will be saved in the Directory used:
 
