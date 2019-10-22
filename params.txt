@@ -1,17 +1,17 @@
-Warning: please never modify this document. Just fill it with the values required, then save it and run 'Kramers.py'(float number should be divided by '.')
+#Warning: Fill this file with the values required, then save it and run 'Kramers.py'(float number should be divided by '.')
 
-Epsilon: is the stochastic modulation and should be a float digit in range [0.3, 1] 
-Gamma  : is the attrito and should be a float digit in range (0, 0.5]
-N.     : is the number of particles on which to perform the MonteCarlo simulation and should be an int > 1000 
-Alfa.  : is to define the potential of the form V = (x^2 - Alfa*x)(x^2 + Beta*x) and should be >0  
-Beta.  : is to define the potential of the form V = (x^2 - Alfa*x)(x^2 + Beta*x) and should be >0
-Seed.  : is the seed of the Gaussian Random Number Generator
+#Epsilon: is the stochastic modulation and should be a float digit in range [0.3, 1] 
+#Gamma  : is the attrito and should be a float digit in range (0, 0.5]
+#N.     : is the number of particles on which to perform the MonteCarlo simulation and should be an int > 1000 
+#Alfa.  : is to define the potential of the form V = (x^2 - Alfa*x)(x^2 + Beta*x) and should be >0  
+#Beta.  : is to define the potential of the form V = (x^2 - Alfa*x)(x^2 + Beta*x) and should be >0
+#Seed.  : is the seed of the Gaussian Random Number Generator
 
 
-
+[Variables]
 Epsilon = 0.4
-Gamma.  = 0.1
+Gamma   = 0.1
 N       = 1000
-Alfa.   = 1.47
-Beta.   = 1.47
-Seed.   = 1.0
+Alpha   = 1.47
+Beta    = 1.47
+Seed    = 1.0
