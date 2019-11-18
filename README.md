@@ -64,19 +64,19 @@ Please, before running Kramers, check that you have already installed the follow
 
 
 
-1- Open 'params.txt' and fill it with the imput values required. Please respect the indications given. All parameters explanations will be contained in this file.
+1. Open 'params.txt' and fill it with the imput values required. Please respect the indications given. All parameters explanations will be contained in this file.
 
-2- Run 'Kramers.py'. At the end of the simulation five new txt files will be saved in the Directory used:
+2. Run 'Kramers.py'. At the end of the simulation five new txt files will be saved in the Directory used:
 
-	> 'Posizioni.txt'    : txt file containing the positions of all the particles for all times
-	> 'Impulsi.txt'      : txt file containing the values of the impulses for all the particles at any time
-	> 'LeftFraction.txt' : txt file containing the numbers of particles contained in the Left hole of the Potential
-	> 'RightFraction.txt': txt file containing the numbers of particles contained in the Right hole of the Potential
-	> 'Time.txt'         : txt file containing all of the time instants 
+	- 'Posizioni.txt'       : txt file containing the positions of all the particles for all times
+	- 'Impulsi.txt'          : txt file containing the values of the impulses for all the particles at any time
+	- 'LeftFraction.txt'   : txt file containing the numbers of particles contained in the Left hole of the Potential
+	- 'RightFraction.txt': txt file containing the numbers of particles contained in the Right hole of the Potential
+	- 'Time.txt'              : txt file containing all of the time instants 
 
 And a print message will advise you that the simulation is finished asking to run 'Graphic.py'.
 
-3- Run 'Graphic.py' in order to obtain a visualization of the numerical results previously obtained. Five plots will be showed. The first two will report the spatial and the impulse distributions, the second two will represent the variations of the numerical probabilities compared with the theoretical ones, while the last histogram will compare these probabilities at the end of the simulation.
+3. Run 'Graphic.py' in order to obtain a visualization of the numerical results previously obtained. Five plots will be showed. The first two will report the spatial and the impulse distributions, the second two will represent the variations of the numerical probabilities compared with the theoretical ones, while the last histogram will compare these probabilities at the end of the simulation.
 
 
 The file 'Kram_Functions.py' is a file containing all the functions created for 'Kramers.py', while 'Test_Kram_Functions.py' is a file containing a few examples of tests performed on 'Kram_Functions.py' in order to test the robustness and the correctness of the functions created 
