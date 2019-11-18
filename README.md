@@ -41,7 +41,7 @@ git clone https://github.com/Giomu/Kramers.git
 Please, before running Kramers, check that you have already installed the following libraries. For any information on these libraries we refer to the official python's documentations as follows:
 
 
-</br>
+
 > random       : https://docs.python.org/3.6/library/random.html
 
 > numpy        : https://numpy.org/doc/1.17/user/setting-up.html
