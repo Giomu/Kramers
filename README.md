@@ -1,6 +1,7 @@
 
 # PURPOSES OF THE PROJECT:
-
+</br>
+</br>
 
 
 In this Project our purpose is that of performing a Monte Carlo simulation of the motion of a given particle on a double well potential under the action of white noise.
@@ -18,7 +19,8 @@ In order to compare numerical results (such as spatial and impulse distributions
 
 All variables explanations are contained in **params.txt**
 
-
+</br>
+</br>
 
 
 
@@ -28,11 +30,13 @@ All variables explanations are contained in **params.txt**
 
 
 ## HOW TO INSTALL Kramers:
-
+</br>
+</br>
 
 
 Simply run on your Terminal, in the Directory you want:
-'>git clone https://github.com/Giomu/Kramers.git   
+
+>git clone https://github.com/Giomu/Kramers.git   
 
 
 Please, before running Kramers, check that you have already installed the following libraries. For any information on these libraries we refer to the official python's documentations as follows:
@@ -51,7 +55,8 @@ Please, before running Kramers, check that you have already installed the follow
 
 > scipy        : https://www.scipy.org/install.html
 
-
+</br>
+</br>
 
 
 
@@ -61,7 +66,8 @@ Please, before running Kramers, check that you have already installed the follow
 
 
 ## HOW TO USE Kramers:
-
+</br>
+</br>
 
 
 1. Open **params.txt** and fill it with the input values required. Please respect the indications given. All parameters explanations will be contained in this file.
@@ -79,7 +85,7 @@ And a print message will advise you that the simulation is finished asking to ru
 3. Run **Graphic.py** in order to obtain a visualization of the numerical results previously obtained. Five plots will be showed. The first two will report the spatial and the impulse distributions, the second two will represent the variations of the numerical probabilities compared with the theoretical ones, while the last histogram will compare these probabilities at the end of the simulation.
 
 
-The file **Kram_Functions.py** is a file containing all the functions created for **Kramers.py**, while **Test_Kram_Functions.py** is a file containing a few examples of tests performed on **Kram_Functions.py** in order to test the robustness and the correctness of the functions created 
+The file **Kram_Functions.py** is a file containing all the functions created for **Kramers.py**, while **Test_Kram_Functions.py** is a file containing a few examples of tests performed on **Kram_Functions.py** in order to test the robustness and the correctness of the functions created. 
 
 
 
