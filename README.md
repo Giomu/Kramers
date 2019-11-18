@@ -12,9 +12,9 @@ V(x) = (x^2 - ax) (x^2 + bx)
 
 And want to perform a Monte Carlo simulation integrating the motion with a first order Symplectic Integrator of equations:
 
-p(i+1) = p(i) - gamma*p(i)*dt - V(i)''*dt + eps*csi(i)*sqrt(dt)
-![equation] (http://www.sciweavers.org/tex2img.php?eq=p%28i%2B1%29%20%3D%20p%28i%29%20-%20%5Cgamma%20p%28i%29%20dt%20-%20V%28i%29%27%27%20dt%20%2B%20%5Cvarepsilon%20%5Cxi%28i%29%20%5Csurd%28dt%29%0A%0A%0A%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+<a href="https://www.codecogs.com/eqnedit.php?latex=p(i&plus;1)&space;=&space;p(i)&space;-&space;\gamma&space;p(i)&space;dt&space;-&space;V(i)''&space;dt&space;&plus;&space;\varepsilon&space;\xi(i)&space;\sqrt(dt)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(i&plus;1)&space;=&space;p(i)&space;-&space;\gamma&space;p(i)&space;dt&space;-&space;V(i)''&space;dt&space;&plus;&space;\varepsilon&space;\xi(i)&space;\sqrt(dt)" title="p(i+1) = p(i) - \gamma p(i) dt - V(i)'' dt + \varepsilon \xi(i) \sqrt(dt)" /></a>
 
+p(i+1) = p(i) - gamma*p(i)*dt - V(i)''*dt + eps*csi(i)*sqrt(dt)
 x(i+1) = x(i) + p(i+1)*dt
 
 In order to compare numerical results (such as spatial and impulse distributions and variations of probabilities in time) with the theoretical ones. 
