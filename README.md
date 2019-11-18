@@ -39,7 +39,7 @@ git clone https://github.com/Giomu/Kramers.git
 ```
 </br>
 Please, before running Kramers, check that you have already installed the following libraries. For any information on these libraries we refer to the official python's documentations as follows:
-
+</br>
 
 
 > random       : https://docs.python.org/3.6/library/random.html
