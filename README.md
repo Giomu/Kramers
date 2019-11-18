@@ -1,5 +1,5 @@
 
-#PURPOSES OF THE PROJECT:
+# PURPOSES OF THE PROJECT:
 
 
 
@@ -27,7 +27,7 @@ All variables explanations are contained in 'params.txt'
 
 
 
-##HOW TO INSTALL Kramers:
+## HOW TO INSTALL Kramers:
 
 
 
@@ -60,7 +60,7 @@ Please, before running Kramers, check that you have already installed the follow
 
 
 
-##HOW TO USE Kramers:
+## HOW TO USE Kramers:
 
 
 
