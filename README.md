@@ -13,6 +13,8 @@ V(x) = (x^2 - ax) (x^2 + bx)
 And want to perform a Monte Carlo simulation integrating the motion with a first order Symplectic Integrator of equations:
 
 p(i+1) = p(i) - gamma*p(i)*dt - V(i)''*dt + eps*csi(i)*sqrt(dt)
+![equation] (http://www.sciweavers.org/tex2img.php?eq=p%28i%2B1%29%20%3D%20p%28i%29%20-%20%5Cgamma%20p%28i%29%20dt%20-%20V%28i%29%27%27%20dt%20%2B%20%5Cvarepsilon%20%5Cxi%28i%29%20%5Csurd%28dt%29%0A%0A%0A%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+
 x(i+1) = x(i) + p(i+1)*dt
 
 In order to compare numerical results (such as spatial and impulse distributions and variations of probabilities in time) with the theoretical ones. 
@@ -38,7 +40,7 @@ Simply run on your Terminal, in the Directory you want:
 ```
 git clone https://github.com/Giomu/Kramers.git   
 ```
-
+</br>
 Please, before running Kramers, check that you have already installed the following libraries. For any information on these libraries we refer to the official python's documentations as follows:
 
 
