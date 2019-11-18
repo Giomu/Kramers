@@ -1,7 +1,6 @@
 
 # PURPOSES OF THE PROJECT:
 </br>
-</br>
 
 
 In this Project our purpose is that of performing a Monte Carlo simulation of the motion of a given particle on a double well potential under the action of white noise.
@@ -33,8 +32,6 @@ All variables explanations are contained in **params.txt**
 
 ## HOW TO INSTALL Kramers:
 </br>
-</br>
-
 
 Simply run on your Terminal, in the Directory you want:
 ```
@@ -69,8 +66,6 @@ Please, before running Kramers, check that you have already installed the follow
 
 ## HOW TO USE Kramers:
 </br>
-</br>
-
 
 1. Open **params.txt** and fill it with the input values required. Please respect the indications given. All parameters explanations will be contained in this file.
 
