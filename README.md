@@ -8,14 +8,14 @@ In this Project our purpose is that of performing a Monte Carlo simulation of th
 
 We have a single particle living in a potential V(x) of the form:
 
-V(x) = (x^2 - ax) (x^2 + bx)
+<a href="https://www.codecogs.com/eqnedit.php?latex=V(x)&space;=&space;(x^2&space;-&space;ax)&space;(x^2&space;&plus;&space;bx)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?V(x)&space;=&space;(x^2&space;-&space;ax)&space;(x^2&space;&plus;&space;bx)" title="V(x) = (x^2 - ax) (x^2 + bx)" /></a>
 
 And want to perform a Monte Carlo simulation integrating the motion with a first order Symplectic Integrator of equations:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=p(i&plus;1)&space;=&space;p(i)&space;-&space;\gamma&space;p(i)&space;dt&space;-&space;V(i)''&space;dt&space;&plus;&space;\varepsilon&space;\xi(i)&space;\sqrt(dt)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(i&plus;1)&space;=&space;p(i)&space;-&space;\gamma&space;p(i)&space;dt&space;-&space;V(i)''&space;dt&space;&plus;&space;\varepsilon&space;\xi(i)&space;\sqrt(dt)" title="p(i+1) = p(i) - \gamma p(i) dt - V(i)'' dt + \varepsilon \xi(i) \sqrt(dt)" /></a>
 
-p(i+1) = p(i) - gamma*p(i)*dt - V(i)''*dt + eps*csi(i)*sqrt(dt)
-x(i+1) = x(i) + p(i+1)*dt
+<a href="https://www.codecogs.com/eqnedit.php?latex=x(i&plus;1)&space;=&space;x(i)&space;&plus;&space;p(i&plus;1)dt" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x(i&plus;1)&space;=&space;x(i)&space;&plus;&space;p(i&plus;1)dt" title="x(i+1) = x(i) + p(i+1)dt" /></a>
+
 
 In order to compare numerical results (such as spatial and impulse distributions and variations of probabilities in time) with the theoretical ones. 
 
