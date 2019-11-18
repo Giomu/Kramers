@@ -35,9 +35,9 @@ All variables explanations are contained in **params.txt**
 
 
 Simply run on your Terminal, in the Directory you want:
-
->git clone https://github.com/Giomu/Kramers.git   
-
+'''
+git clone https://github.com/Giomu/Kramers.git   
+'''
 
 Please, before running Kramers, check that you have already installed the following libraries. For any information on these libraries we refer to the official python's documentations as follows:
 
