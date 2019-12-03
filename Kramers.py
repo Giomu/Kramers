@@ -47,116 +47,103 @@ config.read_file(open(r'params.txt')) #open file and read it
 
 
 
+#Take the variables needed from params.txt
 
-
-while True:
-    try:
-        eps = float(config.get('Variables', 'Epsilon'))
+try:
+    eps = float(config.get('Variables', 'Epsilon'))
     
-    except ValueError:
-        logging.error("Sorry, epsilon should be a float digit.")
-        sys.exit()
+except ValueError:
+    logging.error("Sorry, epsilon should be a float digit.")
+    sys.exit()
     
-    if eps < 0.3 or eps>1:
-        logging.warning("epsilon should be in range (0.3, 1) to see some effects")
-        sys.exit()
+if eps < 0.3 or eps>1:
+    logging.warning("epsilon should be in range (0.3, 1) to see some effects")
+    sys.exit()
     
-    else:
-        break
 
 
 
-
-
-while True:
-    try:
-        gamma = float(config.get('Variables', 'Gamma'))
+try:
+    gamma = float(config.get('Variables', 'Gamma'))
     
-    except ValueError:
-        logging.error("gamma should be a float digit.")
-        sys.exit()
+except ValueError:
+  
+    logging.error("gamma should be a float digit.")
+    sys.exit()
     
-    if gamma < 0 or gamma>1:
-        logging.warning("gamma should be in range (0, 1)")
-        sys.exit()
+if gamma < 0 or gamma>1:
     
-    else:
-        break
-
-
-
-
-
-while True:
-    try:
-        num_sim = int(config.get('Variables', 'N'))
+    logging.warning("gamma should be in range (0, 1)")
+    sys.exit()
     
-    except ValueError:
-        logging.error(" N should be an int digit.")
-        sys.exit()
+
+
+
+try:
+    num_sim = int(config.get('Variables', 'N'))
     
-    if num_sim < 1000:
-        logging.warning(" The error goes as 1/sqrt(N) insert N higher then 1000")
-        sys.exit()
+except ValueError:
+        
+    logging.error(" N should be an int digit.")
+    sys.exit()
     
-    else:
-        break
-
-
-
-
-
-while True:
-    try:
-        a = float(config.get('Variables', 'Alpha'))
+if num_sim < 1000:
+        
+    logging.warning(" The error goes as 1/sqrt(N) insert N higher then 1000")
+    sys.exit()
     
-    except ValueError:
-        logging.error("Sorry, a should be a float digit.")
-        sys.exit()
+
+
+
+try:
+    a = float(config.get('Variables', 'Alpha'))
     
-    if a < 0:
-        logging.warning("a should be greater then 0")
-        sys.exit()
+except ValueError:
+        
+    logging.error("Sorry, a should be a float digit.")
+    sys.exit()
     
-    else:
-        break
-
-
-
-
-
-while True:
-    try:
-        b = float(config.get('Variables', 'Beta'))
+if a < 0:
+        
+    logging.warning("a should be greater then 0")
+    sys.exit()
     
-    except ValueError:
-        logging.error("Sorry, b should be a float digit.")
-        sys.exit()
-    
-    if a < 0:
-        logging.warning("b should be greater then 0")
-        sys.exit()
-    
-    else:
-        break
 
 
 
+try:
+        
+    b = float(config.get('Variables', 'Beta'))
+    
+except ValueError:
+        
+    logging.error("Sorry, b should be a float digit.")
+    sys.exit()
+    
+if a < 0:
+        
+    logging.warning("b should be greater then 0")
+    sys.exit()
+    
 
-while True:
-    try:
-        s0 = float(config.get('Variables', 'Seed'))
+
+
+try:
+        
+    s0 = float(config.get('Variables', 'Seed'))
     
-    except ValueError:
-        logging.error("Sorry, seed should be a float digit.")
-        sys.exit()
+except ValueError:
+        
+    logging.error("Sorry, seed should be a float digit.")
+    sys.exit()
     
-    if s0 < 0:
-        logging.warning("seed should be greater then 0")
-        sys.exit()
+if s0 < 0:
+        
+    logging.warning("seed should be greater then 0")
+    sys.exit()
     
-    else:
-        break
+
+
 
 
 
